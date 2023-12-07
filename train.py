@@ -3,6 +3,16 @@ from sentence_transformers import InputExample
 from util import read_json
 from sentence_transformers import losses
 from torch.utils.data import DataLoader
+import argparse
+
+# 创建 ArgumentParser 对象
+parser = argparse.ArgumentParser(description='Process some command line arguments')
+# 添加命令行参数
+parser.add_argument('--output_path', type=str, help='Specify the value for the "out" parameter')
+# 解析命令行参数
+args = parser.parse_args()
+output_path = args.output_path
+print(output_path)
 
 # 第一步：选择一个已有语言模型
 word_embedding_model = models.Transformer('distilroberta-base')
@@ -23,4 +33,5 @@ num_epochs = 10
 warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
 model.fit(train_objectives=[(train_dataloader, train_loss)],
           epochs=num_epochs,
-          warmup_steps=warmup_steps)
+          warmup_steps=warmup_steps,
+          output_path=output_path)
