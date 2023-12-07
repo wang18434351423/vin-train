@@ -3,16 +3,9 @@ from sentence_transformers import InputExample
 from util import read_json
 from sentence_transformers import losses
 from torch.utils.data import DataLoader
-import argparse
+from datetime import datetime
 
-# 创建 ArgumentParser 对象
-parser = argparse.ArgumentParser(description='Process some command line arguments')
-# 添加命令行参数
-parser.add_argument('--output_path', type=str, help='Specify the value for the "out" parameter')
-# 解析命令行参数
-args = parser.parse_args()
-output_path = args.output_path
-print(output_path)
+output_path = 'training_quora-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 # 第一步：选择一个已有语言模型
 word_embedding_model = models.Transformer('distilroberta-base')
